@@ -1,4 +1,4 @@
-#Analysis for paper. 
+#scRNA seq analysis of cultured MSCs
 
 #load all required libraries
 library(Seurat)
