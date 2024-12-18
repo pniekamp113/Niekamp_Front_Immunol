@@ -18,6 +18,21 @@ data <- data[rowSums(is.na(data)) < ncol(data), ]
 data <- data.frame(data)
 data$Donor_ID <- factor(data$Donor_ID, levels = c(257, 320, 43, 127, 17, 74, 75, 63))
 
+# Calculate the coefficient of variation for each markers
+results <- data.frame(
+  Marker = c("IDO1", "CSF1", "CCL2", "CD63"),
+  Mean = sapply(data[, -1], mean),
+  SD = sapply(data[, -1], sd)
+)
+
+# Calculate the Coefficient of Variation (CV)
+results$CV <- (results$SD / results$Mean) * 100
+
+print(results)
+write.csv(results, file = "coefficients.csv")
+
+# Calculating scores for weighted and unweighted matrices
+
 # Determine quartiles
 score_quartile <- function(column) {
   q <- quantile(column, probs = c(0.25, 0.5, 0.75))  # Calculate quartiles
